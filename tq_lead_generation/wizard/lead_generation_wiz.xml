@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="lead_generation_wiz_form" model="ir.ui.view">
+            <field name="name">lead.generation.wizard.form</field>
+            <field name="model">lead.generation.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Search URL">
+                    <group>
+                        <field name="platform_id" required="1" options="{'no_create': True}"/>
+                        <field name="url" widget="url"/>
+                    </group>
+                    <footer>
+                        <button string="Validate URL" type="object" name="validate_url" class="btn btn-primary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="lead_generation_wiz_action" model="ir.actions.act_window">
+            <field name="name">URL Validation Form</field>
+            <field name="res_model">lead.generation.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="lead_generation_wiz_menu" parent="tq_lead_generation.lead_generation_root" name="URL Validation Form" action="lead_generation_wiz_action" sequence="11"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+        <record model="ir.module.category" id="module_project_task">
+            <field name="name">Project Tasks</field>
+        </record>
+        <record id="project_task_group_user" model="res.groups">
+            <field name="name">User Only</field>
+            <field name="category_id" ref="module_project_task"/>
+        </record>
+        <record id="project_task_group_manager_qc" model="res.groups">
+            <field name="name">QC Manager</field>
+            <field name="category_id" ref="module_project_task"/>
+        </record>
+        <record id="project_task_group_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="module_project_task"/>
+        </record>
+        
+
+        <record id="project_task_rule" model="ir.rule">
+            <field name="name">Project Task User Own Records</field>
+            <field name="model_id" ref="model_project_task"/>
+            <field name="groups" eval="[(4, ref('tq_digital_videos.project_task_group_user'))]"/>
+            <field name="domain_force">
+                ['|','|',('user_ids','=',False),('user_ids','=',user.id),('child_ids.user_ids','=',user.id)]
+            </field>
+        </record>
+    </data>
+</odoo>

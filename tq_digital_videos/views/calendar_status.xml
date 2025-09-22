@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="calendar_status_form" model="ir.ui.view">
+            <field name="name">calendar.status - Form</field>
+            <field name="model">calendar.status</field>
+            <field name="arch" type="xml">
+                <form string="Project platform">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="color" widget="color"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="calendar_status_tree" model="ir.ui.view">
+            <field name="name">calendar.status - Tree</field>
+            <field name="model">calendar.status</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="color" widget="color"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_calendar_status" model="ir.actions.act_window">
+            <field name="name">Calendar Status</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">calendar.status</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="calendar_status_menu_2" parent="calendar.calendar_menu_config" name="Calendar Status"
+                  action="action_calendar_status" sequence="12"/>
+        <menuitem id="calendar_status_menu_1" parent="calendar.mail_menu_calendar" name="Calendar"
+                  action="calendar.action_calendar_event" sequence="12"/>
+    </data>
+</odoo>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="inherit_project_form_view" model="ir.ui.view">
+        <field name="name">inherit.project.form.view</field>
+        <field name="model">project.project</field>
+        <field name="priority" eval="70"/>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='settings']" position="after">
+                <page name="users" string="Users">
+                    <field name="user_ids"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project.task_type_tree_inherited" model="ir.ui.view">
+        <field name="name">project.task.type.tree.inherited</field>
+        <field name="model">project.task.type</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="project.task_type_tree"/>
+        <field name="arch" type="xml">
+            <!--            <xpath expr="//tree" position="attributes">-->
+            <!--                <attribute name="default_group_by">project_ids</attribute>-->
+            <!--            </xpath>-->
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="mail_template_id" optional="hide"/>
+                <field name="rating_template_id" optional="hide" groups="project.group_project_rating"/>
+                <field name="project_ids" required="1" optional="show" widget="many2many_tags"
+                       options="{'color_field': 'color'}"/>
+            </xpath>
+        </field>
+    </record>
+
+<!--    <record id="view_task_tree2_to_update_stage" model="ir.ui.view">-->
+<!--        <field name="name">project.task.tree.update.stage.inherited</field>-->
+<!--        <field name="model">project.task</field>-->
+<!--        <field name="inherit_id" ref="project.view_task_tree2"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='stage_id']" position="replace">-->
+<!--                <field name="stage_id" optional="show"/>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+</odoo>

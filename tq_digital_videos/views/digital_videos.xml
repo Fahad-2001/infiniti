@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="digital_videos_search" model="ir.ui.view">
+            <field name="name">Digital Assets - Search</field>
+            <field name="model">digital.videos</field>
+            <field name="arch" type="xml">
+                <search string="Digital Assets">
+                    <field name="name" filter_domain="[('name','ilike',self)]" string="Name"/>
+                    <field name="digital_seq" filter_domain="[('digital_seq','ilike',self)]" string="Sequence"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Media Type" name="media_type" context="{'group_by':'media_type_id'}" help="Media Type"/>
+                        <filter string="Agency" name="agency_group" context="{'group_by':'agency_id'}" help="Agency"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="digital_videos_form" model="ir.ui.view">
+            <field name="name">Digital Assets - Form</field>
+            <field name="model">digital.videos</field>
+            <field name="arch" type="xml">
+                <form string="Digital Assets" duplicate="0">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="digital_seq" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="is_spam"/>
+                                <field name="agency_id" required="1" options="{'no_create': True}"/>
+                                <field name="agency_UID" string="Agency UID"/>
+                                <field name="tag_ids" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="url_1" widget="url"/>
+                                <field name="url_2" widget="url"/>
+                                <field name="url_3" widget="url"/>
+                                <field name="media_type_id" required="1" options="{'no_create': True}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="sub_tasks" string="Sub Tasks">
+                                <field name="sub_tasks_ids">
+                                    <tree editable="bottom">
+                                        <field name="task_id" options="{'no_create': True}"/>
+                                        <field name="task_tag_ids" widget="many2many_tags"/>
+                                        <field name="task_seq"/>
+                                        <field name="start_time" />
+                                        <field name="end_time" />
+                                        <field name="elapsed_time"/>
+                                        <field name="parent_task_id" string="Parent Task"/>
+                                        <field name="project_id" string="Project"/>
+                                        <field name="is_spam" optional="hide"/>
+                                        <field name="agency_id" optional="hide"/>
+                                        <field name="create_uid" optional="hide"/>
+                                        <field name="create_date" optional="hide"/>
+                                        <field name="write_uid" optional="hide"/>
+                                        <field name="write_date" optional="hide"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="digital_videos_tree" model="ir.ui.view">
+            <field name="name">Digital Assets - Tree</field>
+            <field name="model">digital.videos</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="create_date"/>
+                    <field name="digital_seq" />
+                    <field name="agency_id"/>
+                    <field name="name"/>
+                    <field name="media_type_id"/>
+                    <!--<field name="url_1" widget="url"/>
+                    <field name="url_2" widget="url"/>
+                    <field name="url_3" widget="url"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_digital_videos" model="ir.actions.act_window">
+            <field name="name">Digital Assets</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">digital.videos</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="digital_videos_root" name="Digital Assets" web_icon="tq_digital_videos,static/description/icon.png" sequence="8" />
+        <!--<menuitem id="digital_videos_menu" parent="digital_videos_root" name="Digital Assets" sequence="9"/>-->
+        <menuitem id="digital_videos_menu_1" parent="digital_videos_root" name="Digital Assets" action="action_digital_videos" sequence="10"/>
+        <menuitem id="digital_videos_conf" parent="digital_videos_root" name="Configurations" sequence="30"/>
+        
+    </data>
+</odoo>

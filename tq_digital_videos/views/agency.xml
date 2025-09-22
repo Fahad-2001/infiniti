@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="agency_form" model="ir.ui.view">
+            <field name="name">Agency - Form</field>
+            <field name="model">res.agency</field>
+            <field name="arch" type="xml">
+                <form string="Agency">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="open_digital_assets" string="Digital Videos" type="object" icon="fa-play-circle-o">
+                            </button>
+                            <button class="oe_stat_button" name="open_tasks" string="Tasks" type="object" icon="fa-tasks">
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="agency_tree" model="ir.ui.view">
+            <field name="name">Agency - Tree</field>
+            <field name="model">res.agency</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_agency" model="ir.actions.act_window">
+            <field name="name">Agencies</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.agency</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="agency_menu_1" parent="digital_videos_conf" name="Agency" action="action_agency" sequence="12"/>
+    </data>
+</odoo>

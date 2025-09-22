@@ -1,0 +1,42 @@
+<odoo>
+    <record id="view_task_stage_mass_update_wizard" model="ir.ui.view">
+        <field name="name">task.stage.mass.update.wizard.form</field>
+        <field name="model">task.stage.mass.update.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Batch Stage Update">
+                <group>
+                    <field name="stage_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" domain="[('project_ids','!=',False)]"/>
+                </group>
+                <footer>
+                    <button string="Apply" type="object" name="action_apply_stage" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_task_stage_mass_update" model="ir.actions.act_window">
+        <field name="name">Batch Stage Update</field>
+        <field name="res_model">task.stage.mass.update.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="server_action_task_stage_mass_update" model="ir.actions.server">
+        <field name="name">Batch Stage Update</field>
+        <field name="model_id" ref="project.model_project_task"/>
+        <field name="binding_model_id" ref="project.model_project_task"/>
+        <field name="binding_type">action</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = {
+                'name': 'Batch Stage Update',
+                'type': 'ir.actions.act_window',
+                'res_model': 'task.stage.mass.update.wizard',
+                'view_mode': 'form',
+                'target': 'new',
+                'views': [(env.ref('tq_digital_videos.view_task_stage_mass_update_wizard').id, 'form')],
+            }
+        </field>
+    </record>
+</odoo>

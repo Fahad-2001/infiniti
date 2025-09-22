@@ -1,0 +1,227 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="project_task_view_inherit">
+            <field name="name">project.task.view.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_title')]" position="inside">
+                    <h2 class="d-flex flex-row justify-content-between">
+                        <field name="task_seq"/>
+                    </h2>
+                </xpath>
+                <field name='user_ids' position="before">
+                    <field name="parent_id" readonly="1"/>
+                </field>
+                <xpath expr="//field[@name='user_ids']" position="after">
+                    <field name="order_number"/>
+                    <field name="post_description"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="task_status" required="1" string="Status"/>
+                    <field name="task_type_id" required="1"/>
+                    <field name="project_platform_id" required="1"/>
+                    <field name="calendar_id" readonly="1"/>
+                    <field name="calendar_date" readonly="1"/>
+                    <field name="calendar_status_id" options="{'no_create': True, 'no_open': True}"/>
+                </xpath>
+                <xpath expr="//group//group[2]" position="after">
+                    <group>
+                        <field name="project_tag_ids" widget="many2many_tags" invisible="1"/>
+                        <field name="is_click_task_temp" invisible="1"/>
+                        <field name="task_temp_id" string="Task Templates" class="oe_inline mr-2"
+                               options="{'no_create': True}"/>
+                        <!-- <button name="fetch_task_from_template" attrs="{'invisible': [('is_click_task_temp', '=', True)]}" class="btn btn-primary btn-lg btn-floating btn-sm oe_read_only" string="Create Sub-Tasks" type="object"/>-->
+                        <!-- <button name="fetch_task_from_template" invisible="is_click_task_temp" class="btn btn-primary btn-lg btn-floating btn-sm" string="Create Sub-Tasks" type="object"/>-->
+                        <button name="fetch_task_from_template" class="btn btn-primary" string="Create Sub-Tasks"
+                                type="object" style="width: 100%;"/>
+                    </group>
+                </xpath>
+                <xpath expr="//page[2]" position="after">
+                    <page name="digital_videos_page" string="Digital Assets">
+                        <!-- <button name="get_sequnce_list" attrs="{'invisible': [('digital_video_ids', '=', False)]}" class="btn btn-primary btn-lg btn-floating btn-sm oe_read_only" string="Get Sequence" type="object"/>-->
+                        <button name="get_sequnce_list" invisible="not digital_video_ids" class="btn btn-primary"
+                                string="Get Sequence" type="object"/>
+                        <br/>
+                        <br/>
+                        <field name="digital_video_ids">
+                            <tree delete="1" create="0" editable="bottom" decoration-danger="is_spam == True">
+                                <field name="digital_seq"/>
+                                <field name="digital_id" readonly="1"/>
+                                <field name="agency_id"/>
+                                <field name="start_time"/>
+                                <field name="end_time"/>
+                                <field name="elapsed_time"/>
+                                <field name="parent_task_id" string="Parent Task"/>
+                                <field name="project_id" string="Project"/>
+                                <field name="is_spam" optional="hide"/>
+                                <field name="create_uid" optional="hide"/>
+                                <field name="create_date" optional="hide"/>
+                                <field name="write_uid" optional="hide"/>
+                                <field name="write_date" optional="hide"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="post_comments" string="Post Comments">
+                        <field name="post_comment_ids">
+                            <tree editable="bottom">
+                                <field name="post_comment" required="1"/>
+                                <field name="post_comment_user_id" options="{'no_create': True}"/>
+                                <field name="post_comment_datetime"/>
+                                <field name="post_comment_posted"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="project_task_list_view_inherit">
+            <field name="name">project.task.list.view.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.open_view_all_tasks_list_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="attributes">
+                    <attribute name="invisible">False</attribute>
+                    <attribute name="readonly">False</attribute>
+                </xpath>
+                <xpath expr="//field[@name='stage_id']" position="replace">
+                    <field name="stage_id" column_invisible="False" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--		<record model="ir.ui.view" id="project_task_view_inherit_2">-->
+        <!--			<field name="name">project.task.view.inherit</field>-->
+        <!--			<field name="model">project.task</field>-->
+        <!--			&lt;!&ndash;			Fahad &ndash;&gt;-->
+        <!--			&lt;!&ndash;			<field name="groups_id" eval="[(4,ref('tq_digital_videos.project_task_group_user'))]"/>&ndash;&gt;-->
+        <!--			<field name="inherit_id" ref="project.view_task_form2"/>-->
+        <!--			<field name="arch" type="xml">-->
+        <!--				<field name="user_ids" position="attributes">-->
+        <!--					<attribute name="readonly">1</attribute>-->
+        <!--				</field>-->
+        <!--				<field name="stage_id" position="attributes">-->
+        <!--					<attribute name="readonly">1</attribute>-->
+        <!--				</field>-->
+        <!--			</field>-->
+        <!--		</record>-->
+
+        <record id="view_task_kanban_inherited" model="ir.ui.view">
+            <field name="name">project.task.timesheet.kanban.inherited.progress</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_kanban"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//t//div//div//div[hasclass('o_kanban_record_headings')]" position="replace">
+                    <div class="o_kanban_record_headings">
+
+                        <a class="o_project_kanban_box" name="action_view_tasks" type="object">
+
+                            <!--<strong class="o_kanban_record_title">
+                                            <s t-if="!record.active.raw_value"><field name="name" widget="project.project_name_with_subtask_count"/></s>
+                                            <t t-else=""><field name="name" widget="project.project_name_with_subtask_count"/></t>
+                                        </strong>-->
+                            <strong class="o_kanban_record_title">
+                                <field name="name"/>
+                            </strong>
+                            <br></br>
+                            <strong class="o_kanban_record_title">
+                                <field name="parent_id"/>
+                            </strong>
+                            <span invisible="context.get('default_project_id', False) or context.get('fsm_mode', False)">
+                                <br/>
+                                <field name="project_id" required="1"/>
+                            </span>
+                            <br/>
+                            <t t-if="record.partner_id.value">
+                                <!-- <span t-if="!record.partner_is_company.raw_value">-->
+                                <span t-if="!record.partner_is_company">
+                                    <field name="commercial_partner_id"/>
+                                </span>
+                                <span t-else="">
+                                    <field name="partner_id"/>
+                                </span>
+                            </t>
+                            <t t-else="record.email_from.raw_value">
+                                <span>
+                                    <field name="email_from"/>
+                                </span>
+                            </t>
+
+                        </a>
+                    </div>
+
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="project_task_view_search" model="ir.ui.view">
+            <field name="name">project.task.search.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="order_number" string="Order Number"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="act_project_project_2_project_task_all_new" model="ir.actions.act_window">
+            <field name="name">Tasks</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">kanban,tree,form,calendar,pivot,graph,activity</field>
+            <field name="domain">[('parent_id', '=', active_id)]</field>
+            <field name="context">{'default_parent_id': active_id}</field>
+            <field name="search_view_id" ref="project.view_task_search_form"/>
+        </record>
+
+        <record id="project.act_project_project_2_project_task_all" model="ir.actions.act_window">
+            <field name="name">Tasks</field>
+            <field name="res_model">project.task</field>
+            <field name="domain">[('project_id', '=', active_id), ('parent_id', '=', False)]</field>
+            <!--			<field name="domain">[('project_id', '=', active_id), ('parent_id', '!=', False)]</field>-->
+        </record>
+
+        <record id="project.view_task_kanban_inherit_my_task" model="ir.ui.view">
+            <field name="name">project.task.kanban.inherit.my.task</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_kanban"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <!-- <attribute name="default_group_by">personal_stage_type_id</attribute>-->
+                    <attribute name="examples"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--		<record id="project.action_view_all_task" model="ir.actions.act_window">-->
+        <!--			<field name="name">My Tasks</field>-->
+        <!--			<field name="res_model">project.task</field>-->
+
+        <!--		</record>-->
+        <record id="action_sub_task" model="ir.actions.act_window">
+            <field name="name">Sub Tasks</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">kanban,tree,form,calendar,pivot,graph,activity</field>
+            <field name="domain">[('parent_id', '!=', False)]</field>
+        </record>
+        <record id="action_parent_task" model="ir.actions.act_window">
+            <field name="name">Parent Tasks</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">kanban,tree,form,calendar,pivot,graph,activity</field>
+            <field name="domain">[('parent_id', '=', False)]</field>
+        </record>
+        <menuitem id="sub_task_1" parent="project.menu_project_report" name="Sub Task" action="action_sub_task"
+                  sequence="10"/>
+        <menuitem id="parent_task_1" parent="project.menu_project_report" name="Parent Task" action="action_parent_task"
+                  sequence="12"/>
+        <menuitem action="project.open_task_type_form" id="tq_taks_stages" name="Task Stages"
+                  parent="project.menu_project_config" sequence="55"/>
+    </data>
+</odoo>

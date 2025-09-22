@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_name_digital_videos,digital.videos,model_digital_videos,,1,1,1,0
+access_name_sub_task_url,sub.task.url,model_sub_task_url,,1,1,1,1
+access_name_digital_videos_wiz,digital.videos.wiz,model_digital_videos_wiz,,1,1,1,0
+access_name_task_template,task.template,model_task_template,,1,1,1,1
+access_name_task_template_line,task.template.line,model_task_template_line,,1,1,1,1
+access_name_res_agency,res.agency,model_res_agency,,1,1,1,1
+access_name_res_agency_task,res.agency.task,model_res_agency_task,,1,1,1,1
+access_name_media_type,media.type,model_media_type,,1,1,1,1
+access_name_task_type,task.type,model_task_type,,1,1,1,1
+access_name_project_platform,project.platform,model_project_platform,,1,1,1,1
+access_name_post_comment,post.comment,model_post_comment,,1,1,1,1
+access_name_project_platform_link,project.platform.link,model_project_platform_link,,1,1,1,1
+access_name_calendar_status,calendar.status,model_calendar_status,,1,1,1,1
+access_user_access_role,user.access.role,model_user_access_role,base.group_user,1,1,1,1
+access_task_stage_mass_update_wizard,task.stage.mass.update.wizard,model_task_stage_mass_update_wizard,,1,1,1,1

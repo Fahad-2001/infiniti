@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_name_lead_generation,lead_generation,model_lead_generation,tq_lead_generation.lead_generation_group_manager,1,1,1,1
+access_name_lead_generation_user,lead_generation.user,model_lead_generation,tq_lead_generation.lead_generation_group_user,1,1,1,0
+access_name_lead_generation_line,lead_generation_line,model_lead_generation_line,,1,1,1,1
+access_name_lead_generation_wiz,lead.generation.wiz,model_lead_generation_wiz,tq_lead_generation.lead_generation_group_manager,1,1,1,1
+access_name_lead_generation_wiz_user,lead.generation.wiz,model_lead_generation_wiz,tq_lead_generation.lead_generation_group_user,1,1,1,1

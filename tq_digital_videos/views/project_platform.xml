@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="project_platform_form" model="ir.ui.view">
+            <field name="name">Project platform - Form</field>
+            <field name="model">project.platform</field>
+            <field name="arch" type="xml">
+                <form string="Project platform">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="project_platform_tree" model="ir.ui.view">
+            <field name="name">Project platform - Tree</field>
+            <field name="model">project.platform</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_project_platform" model="ir.actions.act_window">
+            <field name="name">Project platform</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">project.platform</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="project_platform_menu_1" parent="project.menu_project_config" name="Project Platform" action="action_project_platform" sequence="12"/>
+    </data>
+</odoo>

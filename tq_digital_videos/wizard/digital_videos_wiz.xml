@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="digital_videos_wiz_form" model="ir.ui.view">
+            <field name="name">digital.videos.wizard.form</field>
+            <field name="model">digital.videos.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Search URL">
+                    <group>
+                        <field name="url" widget="url"/>
+                    </group>
+                    <footer>
+                        <button string="Validate URL" type="object" name="validate_url" class="btn btn-primary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="digital_videos_wiz_action" model="ir.actions.act_window">
+            <field name="name">URL Validation Form</field>
+            <field name="res_model">digital.videos.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="digital_videos_wiz_menu" parent="tq_digital_videos.digital_videos_root" name="URL Validation Form" action="digital_videos_wiz_action" sequence="11"/>
+
+    </data>
+</odoo>

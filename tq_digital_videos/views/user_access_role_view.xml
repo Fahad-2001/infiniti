@@ -1,0 +1,87 @@
+<odoo>
+    <data>
+
+        <record id="view_user_access_role_form" model="ir.ui.view">
+            <field name="name">user.access.role.form</field>
+            <field name="model">user.access.role</field>
+            <field name="arch" type="xml">
+                <form string="Access Role">
+                    <sheet>
+                        <group>
+                            <field name="rec_name"/>
+                            <field name="name"/>
+                            <field name="group_ids" widget="many2many_tags" string="Assign Groups"/>
+                            <field name="group_ids_to_remove" widget="many2many_tags" string="Remove Groups"/>
+                            <!--                            <field name="menus_to_remove" widget="many2many_tags" string="Hide Menus"/>-->
+                        </group>
+                        <!--                        <notebook>-->
+                        <!--                            <page name="groups_to_add" string="Assign Groups">-->
+                        <!--                                <field name="group_ids">-->
+                        <!--                                    <tree>-->
+                        <!--                                        <field name="name" readonly="1"/>-->
+                        <!--                                        <field name="category_id" readonly="1"/>-->
+                        <!--                                    </tree>-->
+                        <!--                                </field>-->
+                        <!--                            </page>-->
+                        <!--                            <page name="groups_to_remove" string="Remove Groups">-->
+                        <!--                                <field name="group_ids_to_remove">-->
+                        <!--                                    <tree editable="bottom">-->
+                        <!--                                        <field name="name"/>-->
+                        <!--                                        <field name="category_id"/>-->
+                        <!--                                    </tree>-->
+                        <!--                                </field>-->
+                        <!--                            </page>-->
+                        <!--                        </notebook>-->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_user_access_role_tree" model="ir.ui.view">
+            <field name="name">user.access.role.tree</field>
+            <field name="model">user.access.role</field>
+            <field name="arch" type="xml">
+                <tree string="Access Role Tree">
+                    <field name="rec_name"/>
+                    <field name="name"/>
+                    <field name="group_ids" widget="many2many_tags"
+                           options="{'no_create': True, 'no_create_edit': True}"/>
+                    <field name="group_ids_to_remove" widget="many2many_tags"
+                           options="{'no_create': True, 'no_create_edit': True}"/>
+                    <!--                    <field name="menus_to_remove" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True}"/>-->
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_user_access_role" model="ir.actions.act_window">
+            <field name="name">Configure User Roles</field>
+            <field name="res_model">user.access.role</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p>
+                    Create and manage role-based access templates for users.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_configure_user_roles"
+                name="Configure User Roles"
+                parent="base.menu_users"
+                action="action_user_access_role"
+                sequence="20"
+        />
+
+        <record id="view_users_form_inherit_role" model="ir.ui.view">
+            <field name="name">res.users.form.inherit.custom.role</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_title')]/group[1]" position="inside">
+                    <field name="user_role_id" string="User Role"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

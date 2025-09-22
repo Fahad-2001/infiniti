@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+     <record id="view_calendar_event_form_inherit" model="ir.ui.view">
+        <field name="name">calendar.event.form</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='start']" position="before">
+                <field name="project_id" options="{'no_create': True, 'no_open': True}"/>
+<!--                <field name="task_id" attrs="{'invisible': [('project_id', '=', False)]}" options="{'no_create': True}"/>-->
+                <field name="task_id" invisible="not project_id" options="{'no_create': True}"/>
+                <field name="status_id" options="{'no_create': True, 'no_open': True}"/>
+            </xpath>
+        </field>
+     </record>
+
+    <record id="view_inherit_calendar_event" model="ir.ui.view">
+        <field name="name">calendar.event.calendar.inherit</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="project_id" options="{'no_create': True, 'no_open': True}"/>
+                <field name="task_id"/>
+                <field name="status_id" options="{'no_create': True, 'no_open': True}"/>
+            </field>
+        </field>
+    </record>
+</odoo>
