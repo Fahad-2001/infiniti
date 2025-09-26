@@ -27,9 +27,9 @@ class ProjectTaskInherit(models.Model):
         'project_task_project_tags_rel',  # unique relation table name
         'task_id',                       # column referring to this model
         'tag_id',                        # column referring to the related model
+        related="project_id.tag_ids",
         string="Project Tags",
-        store=True,
-        compute="get_project_tags"
+        store=True
     )
 
     def write(self, values):

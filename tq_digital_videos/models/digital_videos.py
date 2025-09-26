@@ -5,7 +5,8 @@ from odoo.exceptions import ValidationError, UserError
 class DigitalVideos(models.Model):
     _name = 'digital.videos'
     _inherit = ["mail.thread"]
-
+    _rec_name = 'digital_seq'
+    _description = "Digital Videos"
 
     name = fields.Char(required=True, tracking=True)
     url_1 = fields.Char(string="URL 1", required=True, tracking=True)
@@ -87,6 +88,7 @@ class DigitalVideos(models.Model):
 
 class SubTaskURL(models.Model):
     _name = 'sub.task.url'
+    _description = "Sub Task URL"
 
     digital_id = fields.Many2one('digital.videos')
     digital_seq = fields.Char('Sequence', related='digital_id.digital_seq', store=True)
@@ -97,7 +99,7 @@ class SubTaskURL(models.Model):
         'project_tags_sub_task_url_rel',
         'sub_task_url_id',
         'project_tags_id',
-        related='task_id.tag_ids',
+        related="task_id.tag_ids",
         string='Tags',
         store=True
     )
@@ -123,3 +125,10 @@ class SubTaskURL(models.Model):
             if rec.digital_id:
                 if rec.digital_id.is_spam:
                     rec.is_spam = True
+
+    @api.onchange('task_id')
+    def get_task_tags(self):
+        for rec in self:
+            if rec.task_id.tag_ids:
+                rec.task_tag_ids = [(6, 0, rec.task_id.tag_ids.ids)]
+                print("Task Tags ---->>", rec.task_tag_ids)
